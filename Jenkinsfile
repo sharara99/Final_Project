@@ -8,6 +8,11 @@ pipeline {
                 }
             }
         }
+        stage('Test Ansible') {
+            steps {
+                sh "ansible --version"
+            }
+        }
         stage('Build & push & run cont') {
             steps {
                 sh "ansible-playbook ansible-playbook.yml"
