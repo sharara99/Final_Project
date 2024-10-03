@@ -23,4 +23,9 @@ resource "aws_instance" "ubuntu-instance" {
   tags  = {
     Name  = "Ubuntu-EC2"
   }
+
+  # Create inventory file for ansible
+  provisioner "local-exec" {
+    command = "echo '[my_ec2]' > ../inventory && echo ${self.public_ip} >> ../inventory"
+  }
 }
