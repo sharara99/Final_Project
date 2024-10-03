@@ -13,5 +13,14 @@ pipeline {
                 sh "ansible-playbook ansible-playbook.yml"
             }
         }
+    }
+
+    post{ 
+        always{ 
+            script { 
+                def emailNotification = load 'mail-notification.groovy'
+                emailNotification.sendEmailNotification()
+            } 
+        } 
     } 
 }
