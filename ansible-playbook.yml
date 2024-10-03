@@ -4,14 +4,14 @@
   connection: local
   tasks:
     - name: remove image
-      command: docker rmi elshwaihi/iattend-jen
+      command: docker rmi muhammadelmansi/depi_final
       ignore_errors: yes
 
     - name: build docker image using the Dockerfile
-      command: docker build -t elshwaihi/iattend-jen .
+      command: docker build -t muhammadelmansi/depi_final .
 
     - name: Push Image to dockerhub
-      command: docker push elshwaihi/iattend-jen
+      command: docker push muhammadelmansi/depi_final
       ignore_errors: yes
       
     - name: stop and remove containers
@@ -19,4 +19,4 @@
       ignore_errors: yes
 
     - name: build docker-compose
-      command: docker compose up -d 
+      command: docker-compose up -d 
