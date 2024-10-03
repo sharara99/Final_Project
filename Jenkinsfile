@@ -14,8 +14,8 @@ pipeline {
             }
         }
         stage('Build & push & run cont') {
-            steps {
-                sh "ansible-playbook ansible-playbook.yml"
+            steps { 
+                sh "ansible-playbook -i ./inventory ansible-playbook.yml"
             }
         }
     }
