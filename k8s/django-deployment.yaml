@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+  labels:
+    app: django
+  namespace: proj
+
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+      - name: django
+        image: elshwaihi/iattend-jen
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DEBUG
+          value: "1"
+        - name: DB_NAME
+          value: "django_db"
+        - name: DB_USER
+          value: "django_user"
+        - name: DB_PASSWORD
+          value: "djangopassword"
+        - name: DB_HOST
+          value: "mysqldb"
+        - name: DB_PORT
+          value: "3306"
