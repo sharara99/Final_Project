@@ -1,6 +1,7 @@
 ---
 - name: "Build with ansible"
   hosts: my_ec2
+  ansible_ssh_private_key_file: ./terraform/mykey.pem
   remote_user: ubuntu  # Replace with the correct username for your EC2 instance 
   become: yes  # If you need to run tasks with sudo
   tasks:
