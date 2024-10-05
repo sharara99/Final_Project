@@ -1,4 +1,4 @@
 [my_ec2]
-54.84.35.225 ansible_ssh_private_key_file=./terraform/mykey.pem ansible_user=ubuntu
+54.84.35.225 ansible_ssh_private_key_file=./terraform/mykey.pem
 
 
