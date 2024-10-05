@@ -16,7 +16,7 @@ pipeline {
         stage('Build & push & run cont') {
             steps { 
                 withCredentials([file(credentialsId: 'key', variable: 'PEM_KEY')]) {
-                    sh 'ansible-playbook -i inventory.txt ansible-playbook.yml ANSIBLE_PRIVATE_KEY_FILE=${PEM_KEY}'
+                    sh 'ANSIBLE_PRIVATE_KEY_FILE=${PEM_KEY} ansible-playbook -i inventory.txt ansible-playbook.yml'
                 }
             }
         }
