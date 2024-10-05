@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Build & push & run cont') {
             steps { 
-                sh "ansible-playbook -i ./inventory ansible-playbook.yml"
+                sh "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ./inventory ansible-playbook.yml"
             }
         }
     }
