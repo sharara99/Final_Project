@@ -2,5 +2,5 @@
 *.tfvars
 terraform.tfstate.backup
 .terraform.lock.hcl
-
+mykey.pem
 terraform.tfstate
