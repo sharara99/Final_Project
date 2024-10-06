@@ -17,9 +17,11 @@ output "instance_public_dns" {
 resource "null_resource" "generate_inventory" {
   provisioner "local-exec" {
     command = <<EOF
+      # Create the inventory file and add hosts
       echo "[app_servers]" > /home/vm1/learn/Final_Project/inventory.ini
-      echo "ec2-instance ansible_host=${aws_instance.ubuntu-instance.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=/home/vm1/learn/Final_Project/mykey.pem" >> /home/vm1/learn/Final_Project/inventory.ini
+      echo "ec2-instance ansible_host=\${aws_instance.ubuntu-instance.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=/home/vm1/learn/Final_Project/mykey.pem" >> /home/vm1/learn/Final_Project/inventory.ini
     EOF
   }
 }
+
 
