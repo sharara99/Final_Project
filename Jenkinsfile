@@ -22,6 +22,13 @@ pipeline {
                 }
             }
         }
+
+        stage('Build & push & run cont') {
+            steps {
+                sh "ansible-playbook -i inventory.ini ansible-playbook.yml"
+            }
+        }
+
     }
     
     post { 
