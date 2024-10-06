@@ -1,14 +1,30 @@
 ---
-- name: "Build with ansible"
+- name: "Build with Ansible"
   hosts: app_servers
   tasks:
+    - name: Install Docker Compose
+      apt:
+        name: docker-compose
+        state: present
+      ignore_errors: yes
+
     - name: pull image
       command: docker pull sharara99/depi_final:latest
+      ignore_errors: yes
+    
+    - name: clone repo
+      command: git clone https://github.com/sharara99/Final_Project.git
+      args:
+        chdir: /home/ubuntu
       ignore_errors: yes
 
     - name: stop and remove containers
       command: docker-compose down
+      args:
+        chdir: /home/ubuntu/Final_Project
       ignore_errors: yes
 
     - name: build docker-compose
-      command: docker-compose up -d 
+      command: docker-compose up -d
+      args:
+        chdir: /home/ubuntu/Final_Project
