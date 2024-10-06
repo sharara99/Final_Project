@@ -1,10 +1,9 @@
 ---
 - name: "Build with ansible"
   hosts: app_servers
-  become: yes  # If you need to run tasks with sudo
   tasks:
     - name: pull image
-      command: docker pull sharara99/depi_final
+      command: docker pull sharara99/depi_final:latest
       ignore_errors: yes
 
     - name: stop and remove containers
