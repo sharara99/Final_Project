@@ -18,7 +18,7 @@ resource "aws_instance" "ubuntu-instance" {
                     sudo apt-get update
                     sudo apt-get install -y docker-ce
 
-                    # Install Git
+                    # Install Git 
                     sudo apt-get install -y git
 
                     sudo systemctl start docker
@@ -26,6 +26,10 @@ resource "aws_instance" "ubuntu-instance" {
                     sudo groupadd docker
                     sudo usermod -aG docker $USER && newgrp docker
                     sudo chmod 666 /var/run/docker.sock
+                    
+                    # Install Docker compose
+                    sudo apt-get install -y docker-compose
+
                   EOF
 
   tags  = {
