@@ -8,7 +8,7 @@ resource "aws_instance" "ubuntu-instance" {
   # Enable public IP assignment
   associate_public_ip_address = true
 
-  # Add shell script to install Docker
+  # Add shell script to install Docker and Git
   user_data = <<-EOF
                     #!/bin/bash
                     sudo apt-get update
@@ -17,6 +17,10 @@ resource "aws_instance" "ubuntu-instance" {
                     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
                     sudo apt-get update
                     sudo apt-get install -y docker-ce
+
+                    # Install Git
+                    sudo apt-get install -y git
+
                     sudo systemctl start docker
                     sudo systemctl enable docker
                     sudo groupadd docker
