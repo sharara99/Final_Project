@@ -1,8 +1,12 @@
 resource "aws_instance" "ubuntu-instance" {
-  ami           = var.ami
-  instance_type = "t2.micro"
-  key_name      = "mykey"
-  security_groups = ["${aws_security_group.UbuntuSG.name}"]
+  ami                        = var.ami
+  instance_type             = var.instance_type
+  subnet_id                 = aws_subnet.subnet_public_1.id
+  key_name                  = aws_key_pair.UbuntuKP.key_name
+  vpc_security_group_ids    = [aws_security_group.UbuntuSG.id]
+
+  # Enable public IP assignment
+  associate_public_ip_address = true
 
   # Add shell script to install Docker
   user_data = <<-EOF
@@ -23,11 +27,4 @@ resource "aws_instance" "ubuntu-instance" {
   tags  = {
     Name  = "Ubuntu-EC2"
   }
-
-  # Create inventory file for ansible
-    provisioner "local-exec" {
-    command = "echo '[my_ec2]' > ../inventory.txt && echo '${self.public_ip}' >> ../inventory.txt"
-  }
-
-
 }

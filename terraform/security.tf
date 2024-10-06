@@ -1,5 +1,7 @@
 # Create sercurity group 
 resource "aws_security_group" "UbuntuSG" {
+    vpc_id = aws_vpc.main_vpc.id
+
 
 # Port 22 for SSH to connect to the EC2 instance 
   ingress {
@@ -49,18 +51,3 @@ resource "aws_security_group" "UbuntuSG" {
   }
 }
 
-# Set the keypair criteria
-resource "tls_private_key" "pk" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
-# Create and download the keypair 
-resource "aws_key_pair" "UbuntuKP" {
-  key_name = "mykey"
-  public_key = var.public_key
-
-  provisioner "local-exec" {
-    command = "echo '${tls_private_key.pk.private_key_pem}' > ./mykey.pem && chmod 400 mykey.pem"
-  }
-}
