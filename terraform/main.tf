@@ -21,7 +21,7 @@ resource "aws_instance" "ubuntu-instance" {
                     sudo systemctl enable docker
                     sudo groupadd docker
                     sudo usermod -aG docker $USER && newgrp docker
-                    sudo chmod 777 /var/run/docker.sock
+                    sudo chmod 666 /var/run/docker.sock
                   EOF
 
   tags  = {
