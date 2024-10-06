@@ -1,25 +1,29 @@
 pipeline {
     agent any
     stages {
-        stage('Docker Login') {
+        stage('Setup') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerpass', usernameVariable: 'dockeruser')]) {
-                    sh 'echo $dockerpass | docker login -u $dockeruser --password-stdin'
-                }
+                git branch: 'main', credentialsId: 'Github', url: 'https://github.com/sharara99/Final_Project.git'
             }
         }
+
         stage('Test Ansible') {
             steps {
                 sh "ansible --version"
-            }
-        }
-        stage('Build & push & run cont') {
+            }        
+        
+        stage('Build') {
             steps {
-                ansiblePlaybook credentialsId: 'key2', disableHostKeyChecking: true, installation: 'ansible', inventory: './inventory.txt', playbook: './ansible-playbook.yml'
+                script {
+
+                    withCredentials([usernamePassword(credentialsId: 'DockerHub', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                        sh "docker login -u $DOCKER_USER -p $DOCKER_PASS"
+                    }
+                    
+                }
             }
         }
-    }
-
+        
     post{ 
         always{ 
             script { 
@@ -28,4 +32,7 @@ pipeline {
             } 
         } 
     } 
+
+    }
+}
 }
