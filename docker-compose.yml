@@ -25,7 +25,7 @@ services:
 
   web:
     container_name: django_cont
-    image: muhammadelmansi/depi_final
+    image: sharara99/depi_final
     depends_on:
       db:
         condition: service_healthy
