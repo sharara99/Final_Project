@@ -1,6 +1,7 @@
 ---
 - name: "Build with Ansible"
   hosts: app_servers
+  become: true
   tasks:
     - name: Install Docker Compose
       apt:
